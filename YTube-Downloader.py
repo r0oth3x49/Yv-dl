@@ -6,6 +6,7 @@ from pafy import *
 from Output import *
 from sys import *
 from urlparse import *
+from os.path import expanduser
 import optparse
 import os,time,subprocess
 # checking for python version
@@ -40,7 +41,10 @@ class YoutubeDownloader:
     def BestVidoeQuality(self):
 
         if os.name == "posix":
-            pass
+            if os.path.exists(Video):
+                os.chdir(Video)
+            else:
+                pass
         else:
             if os.path.exists(Video):
                 os.chdir(Video)
@@ -102,7 +106,10 @@ class YoutubeDownloader:
     def DownloadDefaultQuality(self):
 
         if os.name == "posix":
-            pass
+            if os.path.exists(Video):
+                os.chdir(Video)
+            else:
+                pass
         else:
             if os.path.exists(Video):
                 os.chdir(Video)
@@ -131,7 +138,10 @@ class YoutubeDownloader:
     def UserDefineStreamDownload(self, stream_no):
 
         if os.name == "posix":
-            pass
+            if os.path.exists(OtherStreams):
+                os.chdir(OtherStreams)
+            else:
+                pass
         else:
             if os.path.exists(OtherStreams):
                 os.chdir(OtherStreams)
@@ -161,7 +171,10 @@ class YoutubeDownloader:
 
     def BestAudioQuality(self):
         if os.name == "posix":
-            pass
+            if os.path.exists(Audio):
+                os.chdir(Audio)
+            else:
+                pass
         else:
             if os.path.exists(Audio):
                 os.chdir(Audio)
@@ -187,7 +200,22 @@ class YoutubeDownloader:
     	plistTitle = plist["title"]
         plistCount = len(plist['items'])
         if os.name == 'posix':
-            pass
+            if os.path.exists(Playlist):
+                plname = Playlist + "/" + plistTitle
+                try:
+                    os.mkdir(str(plname))
+                except (OSError, Exception, TypeError, IOError, IndexError, ValueError) as e:
+                    if os.path.exists(plname):
+                        os.chdir(plname)
+                    else:
+                        pass
+                else:
+                    if os.path.exists(plname):
+                        os.chdir(plname)
+                    else:
+                        pass
+            else:
+                pass
         else:
             if os.path.exists(Playlist):
                 plname = Playlist + '\\' + plistTitle
@@ -279,9 +307,12 @@ class YoutubeDownloader:
         print  fw + sd + "[VIDEOID]  : " + fg + sd + "%s " % vid
         print  fc + sb + "------------------------------------------------\n"
         print  fg + sb + "[INFORMATION] : " + fg + sd + "Extracting (mp4/webm) audio stream info.."
-        CheckStreamsCmd = "livestreamer " + str(self.video)
+        if os.name == "posix":
+            CheckStreamsCmd = "livestreamer " + str(self.video) + " --yes-run-as-root"
+        else:
+            CheckStreamsCmd = "livestreamer " + str(self.video)
         AvailableStream = subprocess.check_output(CheckStreamsCmd, shell=True)
-        SetAudioStream = "audio_webm" if "audio_webm" in AvailableStream else "audio_mp4"
+        SetAudioStream = "audio_webm" if "audio_webm" in AvailableStream and os.name == "nt"  else "audio_mp4"
         if SetAudioStream == "audio_webm":
             # print  fg + sb + "[INFORMATION] : " + fg + sd + "Stream found"
             print  fg + sb + "[INFORMATION] : " + fg + sd + "Openning webm audio stream : (audio_webm ==> http).."
@@ -290,7 +321,10 @@ class YoutubeDownloader:
             print  fg + sb + "[INFORMATION] : " + fg + sd + "Openning mp4 audio stream : (audio_mp4 ==> http).."
 
         print  fg + sb + "[STARTSTREAM] : " + fg + sd + "Starting live audio stream for %s" % title.encode('latin-1','ignore')
-        StartStreamingCmd = "livestreamer " + str(self.video) + " " + str(SetAudioStream)
+        if os.name == "posix":
+            StartStreamingCmd = "livestreamer " + str(self.video) + " " + str(SetAudioStream) + " --yes-run-as-root"
+        else:
+            StartStreamingCmd = "livestreamer " + str(self.video) + " " + str(SetAudioStream)
         player = subprocess.check_output(StartStreamingCmd, shell=True)
         if "Player closed" in player:
             print  fg + sb + "[INFORMATION] : " + fr + sb + "Player closed by user."
@@ -316,7 +350,10 @@ class YoutubeDownloader:
         print  fw + sd + "[VIDEOID]  : " + fg + sd + "%s " % vid
         print  fc + sb + "------------------------------------------------\n"
         print  fg + sb + "[INFORMATION] : " + fg + sd + "Extracting (hd/normal) video stream info.."
-        CheckStreamsCmd = "livestreamer " + str(self.video)
+        if os.name == "posix":
+            CheckStreamsCmd = "livestreamer " + str(self.video) + " --yes-run-as-root"
+        else:
+            CheckStreamsCmd = "livestreamer " + str(self.video)
         AvailableStream = subprocess.check_output(CheckStreamsCmd, shell=True)
         SetVideoStream = "360p" if "360p" in AvailableStream else "best"
         if SetVideoStream == "360p":
@@ -327,7 +364,10 @@ class YoutubeDownloader:
             print  fg + sb + "[INFORMATION] : " + fg + sd + "Opening hd video stream :  (720p ==> http).."
 
         print  fg + sb + "[STARTSTREAM] : " + fg + sd + "Starting live video stream for %s" % title.encode('latin-1','ignore')
-        StartStreamingCmd = "livestreamer " + str(self.video) + " " + str(SetVideoStream)
+        if os.name == "posix":
+            StartStreamingCmd = "livestreamer " + str(self.video) + " " + str(SetVideoStream) + " --yes-run-as-root"
+        else:
+            StartStreamingCmd = "livestreamer " + str(self.video) + " " + str(SetVideoStream)
         player = subprocess.check_output(StartStreamingCmd, shell=True)
         if "Player closed" in player:
             print  fg + sb + "[INFORMATION] : " + fr + sb + "Player closed by user."
@@ -350,7 +390,31 @@ def Main():
     dirPlaylist = 'Playlists'
     dirOtherStream = "Other Streams"
     if os.name == 'posix':
-        pass
+        path = expanduser("~") + "/Downloads"
+        r0oth3xYTD = path + "/YTube-Downloads"
+        Audio = r0oth3xYTD + "/" + dirAudio
+        Video = r0oth3xYTD + "/" + dirVideos
+        Playlist = r0oth3xYTD + "/" + dirPlaylist
+        OtherStreams = r0oth3xYTD + "/Other-Streams"
+        if os.path.exists(path):
+            try:
+                os.mkdir(r0oth3xYTD)
+            except (OSError, Exception, TypeError, IOError, IndexError, ValueError) as e:
+                pass
+            else:
+                if os.path.exists(r0oth3xYTD):
+                    try:
+                        os.mkdir(str(Audio))
+                        os.mkdir(str(Video))
+                        os.mkdir(str(Playlist))
+                        os.mkdir(str(OtherStreams))
+                    except (OSError, Exception, TypeError, IOError, IndexError, ValueError) as e:
+                        pass
+                else:
+                    pass
+        else:
+            pass
+
     else:
         path = os.environ['USERPROFILE'] + '\\Downloads'
         r0oth3xYTD = path + "\\Youtube Downloads" 
@@ -641,7 +705,10 @@ def Main():
             except ImportError:
                 print fr + sb + "[ERROR] : Live streaming module not found installing...\n"
                 subprocess.call("pip install livestreamer", shell=True)
-                subprocess.call("PAUSE", shell=True)
+                if os.name == "posix":
+                    time.sleep(1)
+                else:
+                    subprocess.call("PAUSE", shell=True)
                 url = args[0]
                 l = []
                 plurl = urlparse(url)
@@ -686,7 +753,10 @@ def Main():
             except ImportError:
                 print fr + sb + "[ERROR] : Live streaming module not found installing...\n"
                 subprocess.call("pip install livestreamer", shell=True)
-                subprocess.call("PAUSE", shell=True)
+                if os.name == "posix":
+                    time.sleep(1)
+                else:
+                    subprocess.call("PAUSE", shell=True)
                 url = args[0]
                 l = []
                 plurl = urlparse(url)

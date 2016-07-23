@@ -2,7 +2,7 @@
 <p>YTube-Downloader is a python based Youtube Audio, Video, Playlist downloader and live streamer for Youtube Audio and Video. It used Python modules Youtube-dl, pafy for downloading and livestreamer for live streaming video and audio</p>
 
 **Requirements**<br />
-- Python27
+	- Python27
 
 **Tested on**<br />
 	- Windows 7/8<br />
@@ -38,8 +38,6 @@ Options:
     --audio-stream    Live streaming of audio on vlc player
   </code></pre>
   
-  
-##### Usage 
 
 **Listing all formats**
 <pre><code>python YTube-Downloader.py -l https://www.youtube.com/watch?v=6TPcwWHZN_0</code></pre>

@@ -2,11 +2,11 @@
 <p>YTube-Downloader is a python based Youtube Audio, Video, Playlist downloader and live streamer for Youtube Audio and Video. It used Python modules Youtube-dl, pafy for downloading and livestreamer for live streaming video and audio</p>
 
 **Requirements**<br />
-	- Python27
+	 Python27
 
 **Tested on**<br />
-	- Windows 7/8<br />
-	- Kali linux (2.0)
+	 Windows 7/8<br />
+	 Kali linux (2.0)
 
 
 **Installation**
@@ -62,8 +62,6 @@ Downloading the playlist by specifying ending number:
 Downloading only the current indexed video in a playlist:
 	python YTube-Downloader.py --no-playlist "https://www.youtube.com/watch?v=BadQWJW7yk4&list=PLEsfXFp6DpzRcd-q4vR5qAgOZUuz8041S&index=42"
 	
-**Note**:-
-	if you are downloading the playlist that starts from any indexed video that ur must be used with in the double quotes (e.g:- "URL")
 </code></pre>
 **Live streaming**
 <pre><code>
@@ -74,10 +72,11 @@ Audio streaming:
 Video streaming:
 	python YTube-Downloader.py --video-stream https://www.youtube.com/watch?v=6TPcwWHZN_0
 
+</code></pre>
 **Note**:-
 	1.	To stream audio video live YTube-Downloader uses python module "livestreamer"
 		which by default it checks if it is installed or not, if not it will try to install
 		if YTube-Downloader gets failed try manually for live streaming.
-	2.	VideoLAN (VLC) player must be there in your machine
+	2.	VideoLAN (VLC) player must be there in your machine.
+	3.	if you are downloading the playlist that starts from any indexed video that ur must be used with in the double 	quotes (e.g:- "URL")
 	
-</code></pre>

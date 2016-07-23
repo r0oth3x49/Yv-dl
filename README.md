@@ -13,7 +13,7 @@
 <p>You can download the latest version of YTube-Downloader by cloning the GitHub repository:</p>
 <pre><code>git clone https://github.com/r0oth3x49/YTube-Downloader.git</pre></code>
 
-### Available Commands
+**Commands**
 <pre><code>
 Author: Nasir khan (<a href="http://anonpakforce.blogspot.com/">r0ot h3x49</a>)
 Options:

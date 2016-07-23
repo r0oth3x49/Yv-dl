@@ -13,10 +13,7 @@
 <p>You can download the latest version of YTube-Downloader by cloning the GitHub repository:</p>
 <pre><code>git clone https://github.com/r0oth3x49/YTube-Downloader.git</pre></code>
 
-
-
-**Available Commands**
-
+### Available Commands
 <pre><code>
 Author: Nasir khan (<a href="http://anonpakforce.blogspot.com/">r0ot h3x49</a>)
 Options:
@@ -76,10 +73,12 @@ Video streaming:
 	python YTube-Downloader.py --video-stream https://www.youtube.com/watch?v=6TPcwWHZN_0
 
 </code></pre>
-**Note**:-<br />
+**Note**:-
+<pre><code>	
 	1.	To stream audio video live YTube-Downloader uses python module "livestreamer"
 		which by default it checks if it is installed or not, if not it will try to install
-		if YTube-Downloader gets failed try manually for live streaming.<br />
-	2.	VideoLAN (VLC) player must be there in your machine.<br />
+		if YTube-Downloader gets failed try manually for live streaming.
+	2.	VideoLAN (VLC) player must be there in your machine.
 	3.	if you are downloading the playlist that starts from any indexed video that ur must be used with in the double 	quotes (e.g:- "URL")
+</code></pre>
 	

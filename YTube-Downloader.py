@@ -9,8 +9,6 @@ from urlparse import *
 from os.path import expanduser
 import optparse
 import os,time,subprocess
-# checking for python version
-# PY2 = version_info[0]
 
 class YoutubeDownloader:
 

@@ -1,19 +1,20 @@
 ## YTube-Downloader
 <p>YTube-Downloader is a python based Youtube Audio, Video, Playlist downloader and live streamer for Youtube Audio and Video. It used Python modules Youtube-dl, pafy for downloading and livestreamer for live streaming video and audio</p>
 
-##### Requirements
-###### Python27
+**Requirements**
+	- Python27
 
-##### Tested on
-<p>Windows 7/8</p>
+**Tested on**
+	- Windows 7/8<br />
+	- Kali linux (2.0)
 
-##### Installation
+
+**Installation**
 <p>You can download the latest version of YTube-Downloader by cloning the GitHub repository:</p>
 <pre><code>git clone https://github.com/r0oth3x49/YTube-Downloader.git</pre></code>
 
-##### Available Commands
+**Available Commands**
 <pre><code>
-xpath tool v1.0 - Automated Xpath Sql Injection
 Author: Nasir khan (<a href="http://anonpakforce.blogspot.com/">r0ot h3x49</a>)
 Options:
   General Options:
@@ -38,15 +39,17 @@ Options:
   </code></pre>
   
   
-##### Usage 
+**Usage** 
 
-###### Listing all available formats for video
+**Listing all formats**
 <pre><code>python YTube-Downloader.py -l https://www.youtube.com/watch?v=6TPcwWHZN_0</code></pre>
-###### Downloading the best video
+**Downloading best video**
 <pre><code>python YTube-Downloader.py -b https://www.youtube.com/watch?v=6TPcwWHZN_0</code></pre>
-###### Downloading the best audio
-<pre><code>python YTube-Downloader.py -a https://www.youtube.com/watch?v=6TPcwWHZN_0</code></pre>
-###### Downloading the playlist
+**Downloading best audio**
+<pre><code>
+	python YTube-Downloader.py -a https://www.youtube.com/watch?v=6TPcwWHZN_0
+</code></pre>
+**Downloading playlist**
 <pre><code>
 
 Downloading the whole playlist:
@@ -61,10 +64,10 @@ Downloading the playlist by specifying ending number:
 Downloading only the current indexed video in a playlist:
 	python YTube-Downloader.py --no-playlist "https://www.youtube.com/watch?v=BadQWJW7yk4&list=PLEsfXFp6DpzRcd-q4vR5qAgOZUuz8041S&index=42"
 	
-Note:-
+**Note**:-
 	if you are downloading the playlist that starts from any indexed video that ur must be used with in the double quotes (e.g:- "URL")
 </code></pre>
-###### Live streaming
+**Live streaming**
 <pre><code>
 
 Audio streaming:
@@ -73,7 +76,7 @@ Audio streaming:
 Video streaming:
 	python YTube-Downloader.py --video-stream https://www.youtube.com/watch?v=6TPcwWHZN_0
 
-Note:-
+**Note**:-
 	1.	To stream audio video live YTube-Downloader uses python module "livestreamer"
 		which by default it checks if it is installed or not, if not it will try to install
 		if YTube-Downloader gets failed try manually for live streaming.

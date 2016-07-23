@@ -5,7 +5,7 @@
 	 
 **Tested on**<br />
 	 Windows 7/8<br />
-	 Kali linux (2.0)
+	 Kali linux (2.0) (tested with root user)
 	 
 **Installation**
 <p>You can download the latest version of YTube-Downloader by cloning the GitHub repository:</p>

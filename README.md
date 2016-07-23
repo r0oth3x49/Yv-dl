@@ -59,7 +59,7 @@ Video streaming:
 	python YTube-Downloader.py --video-stream https://www.youtube.com/watch?v=6TPcwWHZN_0</code></pre>
 
 **Note**
-<pre><code>1.	To stream audio video live YTube-Downloader uses python module "livestreamer" which by default it checks if it is installed or not, if not it will try to install if YTube-Downloader gets failed try manually for live streaming.
+<pre><code>	1.	To stream audio video live YTube-Downloader uses python module "livestreamer" which by default it checks if it is installed or not, if not it will try to install if YTube-Downloader gets failed try manually for live streaming.
 	2.	VideoLAN (VLC) player must be there in your machine.
 	3.	if you are downloading the playlist that starts from any indexed video that ur must be used with in the double 	quotes (e.g:- "URL")</code></pre>
 	

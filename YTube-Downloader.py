@@ -21,7 +21,6 @@ class YoutubeDownloader:
         filledLength    = int(round(barLength * iteration / float(total)))
         percents        = round(100.00 * (iteration / float(total)), decimals)
         bar             = fr + sd + '█' * filledLength + fg + sd +'-' * (barLength - filledLength)
-        # stdout.write('%s%sMB %s%s |%s| %skB/s  %ss ETA \r' % (prefix, status, int(percents), '%', bar, rate, suffix))
         stdout.write(fg + sb + str(prefix) + str(fileSize) + '/' + str(downloaded) + 'MB ' + str(round(percents, 1)) + '% |' + bar + fg + sb + '| ' + str(rate) + 'kB/s  ' + str(suffix) + 's ETA \r')
         stdout.flush()
 
@@ -34,7 +33,6 @@ class YoutubeDownloader:
         h, m = divmod(m, 60)
         eta = "%02d:%02d:%02d" % (h, m, s)
         self.printProgress(Receiving, TotalSize, prefix = '[DOWNLOADING] : ', fileSize = str(TotalSize) , downloaded = str(Receiving), rate = str(Dl_Speed), suffix = str(eta), barLength = 40)
-        # stdout.write("[DOWNLOADING] : {0:}/{1:}MB ({2:}%) {3:4.0f}KB/s ETA {4:}s \r".format(TotalSize, Receiving, per, Dl_Speed, eta))
         
     def BestVidoeQuality(self):
 
@@ -312,10 +310,8 @@ class YoutubeDownloader:
         AvailableStream = subprocess.check_output(CheckStreamsCmd, shell=True)
         SetAudioStream = "audio_webm" if "audio_webm" in AvailableStream and os.name == "nt"  else "audio_mp4"
         if SetAudioStream == "audio_webm":
-            # print  fg + sb + "[INFORMATION] : " + fg + sd + "Stream found"
             print  fg + sb + "[INFORMATION] : " + fg + sd + "Openning webm audio stream : (audio_webm ==> http).."
         else:
-            # print  fg + sb + "[INFORMATION] : " + fg + sd + "Stream not found.."
             print  fg + sb + "[INFORMATION] : " + fg + sd + "Openning mp4 audio stream : (audio_mp4 ==> http).."
 
         print  fg + sb + "[STARTSTREAM] : " + fg + sd + "Starting live audio stream for %s" % title.encode('latin-1','ignore')
@@ -355,10 +351,8 @@ class YoutubeDownloader:
         AvailableStream = subprocess.check_output(CheckStreamsCmd, shell=True)
         SetVideoStream = "360p" if "360p" in AvailableStream else "best"
         if SetVideoStream == "360p":
-            # print  fg + sb + "[INFORMATION] : " + fg + sd + "Video stream found (720p).."
             print  fg + sb + "[INFORMATION] : " + fg + sd + "Opening normal video stream : (360p ==> http).."
         else:
-            # print  fg + sb + "[INFORMATION] : " + fg + sd + "Video stream found (360p).."
             print  fg + sb + "[INFORMATION] : " + fg + sd + "Opening hd video stream :  (720p ==> http).."
 
         print  fg + sb + "[STARTSTREAM] : " + fg + sd + "Starting live video stream for %s" % title.encode('latin-1','ignore')
@@ -702,10 +696,11 @@ def Main():
                 import livestreamer
             except ImportError:
                 print fr + sb + "[ERROR] : Live streaming module not found installing...\n"
-                subprocess.call("pip install livestreamer", shell=True)
                 if os.name == "posix":
+                    subprocess.call("sudo pip install livestreamer", shell=True)
                     time.sleep(1)
                 else:
+                    subprocess.call("pip install livestreamer", shell=True)
                     subprocess.call("PAUSE", shell=True)
                 url = args[0]
                 l = []
@@ -750,10 +745,11 @@ def Main():
                 import livestreamer
             except ImportError:
                 print fr + sb + "[ERROR] : Live streaming module not found installing...\n"
-                subprocess.call("pip install livestreamer", shell=True)
                 if os.name == "posix":
+                    subprocess.call("sudo pip install livestreamer", shell=True)
                     time.sleep(1)
                 else:
+                    subprocess.call("pip install livestreamer", shell=True)
                     subprocess.call("PAUSE", shell=True)
                 url = args[0]
                 l = []

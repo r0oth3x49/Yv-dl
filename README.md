@@ -35,6 +35,7 @@ Options:
   Live streaming options:
     --video-stream    Live streaming of video on vlc player
     --audio-stream    Live streaming of audio on vlc player
+    --best-stream     Best video (720p) streaming
   </code></pre>
   
 **Listing all formats**
@@ -61,6 +62,9 @@ Downloading only the current indexed video in a playlist:
 	
 Video streaming:
 	python YTube-Downloader.py --video-stream https://www.youtube.com/watch?v=6TPcwWHZN_0</code></pre>
+	
+Best video streaming:
+	python YTube-Downloader.py --best-stream https://www.youtube.com/watch?v=6TPcwWHZN_0</code></pre>
 
 **Note**
 <pre><code>	

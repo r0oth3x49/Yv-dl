@@ -21,18 +21,23 @@ class YoutubeDownloader:
         filledLength    = int(round(barLength * iteration / float(total)))
         percents        = round(100.00 * (iteration / float(total)), decimals)
         bar             = fr + sd + '█' * filledLength + fg + sd +'-' * (barLength - filledLength)
-        stdout.write(fg + sb + str(prefix) + str(fileSize) + '/' + str(downloaded) + 'MB ' + str(round(percents, 1)) + '% |' + bar + fg + sb + '| ' + str(rate) + 'kB/s  ' + str(suffix) + 's ETA \r')
+        stdout.write(fg + sb + str(prefix) + str(fileSize) + '/' + str(downloaded) + ' ' + str(round(percents, 1)) + '% |' + bar + fg + sb + '| ' + str(rate) + ' ' + str(suffix) + 's ETA \r')
         stdout.flush()
 
     def DownloadNow(self, total, recvd, ratio, rate, eta):
-        TotalSize = round(float(total) / 1048576, 1)
-        Receiving = round(float(recvd) / 1048576, 1)
-        status = "%s/%s" % (TotalSize, Receiving)
+        TotalSize = round(float(total) / 1048576, 2)
+        Receiving = round(float(recvd) / 1048576, 2)
+        Size = TotalSize if TotalSize < 1024.00 else round(TotalSize/1024.00, 2)
+        Received = Receiving if Receiving < 1024.00 else round(Receiving/1024.00, 2)
+        SGb_SMb = 'MB' if TotalSize < 1024.00 else 'GB'
+        RGb_RMb = 'MB ' if Receiving < 1024.00 else 'GB '
         Dl_Speed = round(float(rate) , 2)
+        dls = Dl_Speed if Dl_Speed < 1024.00 else round(Dl_Speed/1024.00, 2)
+        Mb_kB = 'kB/s ' if Dl_Speed < 1024.00 else 'MB/s '
         m, s = divmod(eta, 60)
         h, m = divmod(m, 60)
         eta = "%02d:%02d:%02d" % (h, m, s)
-        self.printProgress(Receiving, TotalSize, prefix = '[DOWNLOADING] : ', fileSize = str(TotalSize) , downloaded = str(Receiving), rate = str(Dl_Speed), suffix = str(eta), barLength = 40)
+        self.printProgress(Receiving, TotalSize, prefix = '[DOWNLOADING] : ', fileSize = str(Size) + str(SGb_SMb) , downloaded = str(Received) + str(RGb_RMb), rate = str(dls) + str(Mb_kB), suffix = str(eta), barLength = 40)
         
     def BestVidoeQuality(self):
 
@@ -86,16 +91,17 @@ class YoutubeDownloader:
         sid = 0
         for s in allStreams:
             sid += 1
-            size = float(s.get_filesize()) / 1048576
-            in_MB = "MB"
+            size = round(float(s.get_filesize()) / 1048576, 2)
+            sz = size if size < 1024.00 else round(size/1024.00,2)
+            in_MB = "MB " if size < 1024.00 else 'GB '
             media = s.mediatype
             quality = s.quality
             Format = s.extension
             if '1280x720' in quality and 'mp4' in Format and 'normal' in media:
-                in_MB = "MB " + fc + sb + "(Best)" + fg + sd
+                in_MB = in_MB + fc + sb + "(Best)" + fg + sd
             else:
                 pass
-            print  fg + sd + "|     {:<6} {:<8} {:<7} {:<10} {:<7}{:<9}|".format(sid, media, Format , quality, round(size, 2), in_MB)
+            print  fg + sd + "|     {:<6} {:<8} {:<7} {:<10} {:<7}{:<9}|".format(sid, media, Format , quality, sz, in_MB)
 
         print  fg + sd + "+--------------------------------------------------------+\n"
 
@@ -327,7 +333,7 @@ class YoutubeDownloader:
             print  fg + sb + "[ENDOFSTREAM] : " + fg + sd + "Audio stream completed."
         print  fc + sb + "------------------------------------------------\n"
 
-    def LiveStreamVideo(self):
+    def LiveStreamVideo(self, args):
         v = new(self.video)
         Streams = v.allstreams
         print  fg + sb + "\n[INFORMATION] : " + fg + sd + "Downloading webpage.."
@@ -349,7 +355,10 @@ class YoutubeDownloader:
         else:
             CheckStreamsCmd = "livestreamer " + str(self.video)
         AvailableStream = subprocess.check_output(CheckStreamsCmd, shell=True)
-        SetVideoStream = "360p" if "360p" in AvailableStream else "best"
+        if not args:
+        	SetVideoStream = "360p" if "360p" in AvailableStream else "best"
+        else:
+        	SetVideoStream = args
         if SetVideoStream == "360p":
             print  fg + sb + "[INFORMATION] : " + fg + sd + "Opening normal video stream : (360p ==> http).."
         else:
@@ -512,6 +521,12 @@ def Main():
         const='AudioStream', 
         dest='element',\
         help="Live streaming of audio on vlc player")
+    livestream.add_option(
+        "--best-stream", 
+        action='store_const', 
+        const='BestStream', 
+        dest='element',\
+        help="Best video (720p) streaming")
 
     
     parser.add_option_group(general)
@@ -714,12 +729,12 @@ def Main():
                     end = None
                     url = "https://www.youtube.com/watch?v=%s" % vid
                     download = YoutubeDownloader(url, None)
-                    download.LiveStreamVideo()
+                    download.LiveStreamVideo(None)
 
                 else:
                     url = args[0]
                     download = YoutubeDownloader(url, None)
-                    download.LiveStreamVideo()
+                    download.LiveStreamVideo(None)
             else:
                 url = args[0]
                 l = []
@@ -733,12 +748,63 @@ def Main():
                     end = None
                     url = "https://www.youtube.com/watch?v=%s" % vid
                     download = YoutubeDownloader(url, None)
-                    download.LiveStreamVideo()
+                    download.LiveStreamVideo(None)
 
                 else:
                     url = args[0]
                     download = YoutubeDownloader(url, None)
-                    download.LiveStreamVideo()
+                    download.LiveStreamVideo(None)
+
+        elif ret == "BestStream":
+            try:
+                import livestreamer
+            except ImportError:
+                print fr + sb + "[ERROR] : Live streaming module not found installing...\n"
+                if os.name == "posix":
+                    subprocess.call("sudo pip install livestreamer", shell=True)
+                    time.sleep(1)
+                else:
+                    subprocess.call("pip install livestreamer", shell=True)
+                    subprocess.call("PAUSE", shell=True)
+                url = args[0]
+                l = []
+                plurl = urlparse(url)
+                query = parse_qs(plurl.query)
+                if len(query) > 1:
+                    for v in query.values():
+                        l.append(v[0])
+
+                    vid = l[2]
+                    end = None
+                    s = "best"
+                    url = "https://www.youtube.com/watch?v=%s" % vid
+                    download = YoutubeDownloader(url, None)
+                    download.LiveStreamVideo(s)
+
+                else:
+                    url = args[0]
+                    download = YoutubeDownloader(url, None)
+                    download.LiveStreamVideo(s)
+            else:
+            	s = "best"
+                url = args[0]
+                l = []
+                plurl = urlparse(url)
+                query = parse_qs(plurl.query)
+                if len(query) > 1:
+                    for v in query.values():
+                        l.append(v[0])
+
+                    vid = l[2]
+                    end = None
+                    url = "https://www.youtube.com/watch?v=%s" % vid
+                    download = YoutubeDownloader(url, None)
+                    download.LiveStreamVideo(s)
+
+                else:
+                    url = args[0]
+                    download = YoutubeDownloader(url, None)
+                    download.LiveStreamVideo(s)
 
         elif ret == "AudioStream":
             try:

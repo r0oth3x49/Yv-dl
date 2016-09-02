@@ -337,11 +337,14 @@ class YoutubeDownloader:
         print  fg + sb + "[INFORMATION] : " + fg + sd + "Downloading audio information webpage .."
         print  fg + sb + "[INFORMATION] : " + fg + sd + "Extracting audio information.."
         time.sleep(0.4)
-        title = v.title
+        title = "%s" % (v.title)
         dur = v.duration
         vid = v.videoid
         print  fc + sb + "\n------------------------------------------------"
-        print  fw + sd + "[TITLE]    : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+        try:
+            print fw + sd + "[TITLE]    : " + fg + sd + "%s " % title.encode("latin-1","ignore")
+        except UnicodeDecodeError:
+            print fw + sd + "[TITLE]    : " + fg + sd + "%s " % title
         print  fw + sd + "[DURATION] : " + fg + sd + "%s " % dur
         print  fw + sd + "[VIDEOID]  : " + fg + sd + "%s " % vid
         print  fc + sb + "------------------------------------------------\n"
@@ -356,8 +359,10 @@ class YoutubeDownloader:
             print  fg + sb + "[INFORMATION] : " + fg + sd + "Openning webm audio stream : (audio_webm ==> http).."
         else:
             print  fg + sb + "[INFORMATION] : " + fg + sd + "Openning mp4 audio stream : (audio_mp4 ==> http).."
-
-        print  fg + sb + "[STARTSTREAM] : " + fg + sd + "Starting live audio stream for %s" % title.encode('latin-1','ignore')
+        try:
+            print  fg + sb + "[STARTSTREAM] : " + fg + sd + "Starting live audio stream for %s" % title.encode('latin-1','ignore')
+        except UnicodeDecodeError:
+            print  fg + sb + "[STARTSTREAM] : " + fg + sd + "Starting live audio stream for %s" % title
         if os.name == "posix":
             StartStreamingCmd = "livestreamer " + str(self.video) + " " + str(SetAudioStream) + " --yes-run-as-root"
         else:
@@ -378,11 +383,14 @@ class YoutubeDownloader:
         print  fg + sb + "[INFORMATION] : " + fg + sd + "Downloading video information webpage .."
         print  fg + sb + "[INFORMATION] : " + fg + sd + "Extracting video information.."
         time.sleep(0.4)
-        title = v.title
+        title = "%s" % (v.title)
         dur = v.duration
         vid = v.videoid
         print  fc + sb + "\n------------------------------------------------"
-        print  fw + sd + "[TITLE]    : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+        try:
+            print fw + sd + "[TITLE]    : " + fg + sd + "%s " % title.encode("latin-1","ignore")
+        except UnicodeDecodeError:
+            print fw + sd + "[TITLE]    : " + fg + sd + "%s " % title
         print  fw + sd + "[DURATION] : " + fg + sd + "%s " % dur
         print  fw + sd + "[VIDEOID]  : " + fg + sd + "%s " % vid
         print  fc + sb + "------------------------------------------------\n"
@@ -401,7 +409,10 @@ class YoutubeDownloader:
         else:
             print  fg + sb + "[INFORMATION] : " + fg + sd + "Opening hd video stream :  (720p ==> http).."
 
-        print  fg + sb + "[STARTSTREAM] : " + fg + sd + "Starting live video stream for %s" % title.encode('latin-1','ignore')
+        try:
+            print  fg + sb + "[STARTSTREAM] : " + fg + sd + "Starting live video stream for %s" % title.encode('latin-1','ignore')
+        except UnicodeDecodeError:
+            print  fg + sb + "[STARTSTREAM] : " + fg + sd + "Starting live video stream for %s" % title
         if os.name == "posix":
             StartStreamingCmd = "livestreamer " + str(self.video) + " " + str(SetVideoStream) + " --yes-run-as-root"
         else:

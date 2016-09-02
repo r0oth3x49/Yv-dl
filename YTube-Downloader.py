@@ -59,17 +59,26 @@ class YoutubeDownloader:
         print fg + sb + "[INFORMATION] : " + fg + sd + "Extracting video information.."
         time.sleep(0.4)
         bestvideo = v.getbest()
-        title = v.title
+        title = "%s" % (v.title)
         dur = v.duration
         vid = v.videoid
         print fc + sb + "\n------------------------------------------------"
-        print fw + sd + "[TITLE]    : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+        try:
+            print fw + sd + "[TITLE]    : " + fg + sd + "%s " % title.encode("latin-1","ignore")
+        except UnicodeDecodeError:
+            print fw + sd + "[TITLE]    : " + fg + sd + "%s " % title
         print fw + sd + "[DURATION] : " + fg + sd + "%s " % dur
         print fw + sd + "[VIDEOID]  : " + fg + sd + "%s " % vid
         print fc + sb + "------------------------------------------------\n"
-        print fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+        try:
+            print fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title.encode("latin-1","ignore")
+        except UnicodeDecodeError:
+            print fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title
         bestvideo.download(quiet=True, callback=self.DownloadNow)
-        print fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+        try:
+            print fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title.encode("latin-1","ignore")
+        except UnicodeDecodeError:
+            print fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title
         print fc + sb + "\n------------------------------------------------\n"
 
     def AllVideoQuality(self):
@@ -81,7 +90,6 @@ class YoutubeDownloader:
         print  fg + sb + "[INFORMATION] : " + fg + sd + "Extracting video information.."
         time.sleep(0.4)
         vid = v.videoid
-        title = v.title
         allStreams = v.allstreams
         print  fw + sb + "[INFORMATION] : " + fw + sd + "Available streams for video id [%s].." % vid
         time.sleep(0.4)
@@ -124,17 +132,26 @@ class YoutubeDownloader:
         print  fg + sb + "[INFORMATION] : " + fg + sd + "Extracting video information.."
         time.sleep(0.4)
         bestvideo = v.getbest()
-        title = v.title
+        title = "%s" % (v.title)
         dur = v.duration
         vid = v.videoid
         print  fc + sb + "\n------------------------------------------------"
-        print  fw + sd + "[TITLE]    : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+        try:
+            print fw + sd + "[TITLE]    : " + fg + sd + "%s " % title.encode("latin-1","ignore")
+        except UnicodeDecodeError:
+            print fw + sd + "[TITLE]    : " + fg + sd + "%s " % title
         print  fw + sd + "[DURATION] : " + fg + sd + "%s " % dur
         print  fw + sd + "[VIDEOID]  : " + fg + sd + "%s " % vid
         print  fc + sb + "------------------------------------------------\n"
-        print  fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+        try:
+            print fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title.encode("latin-1","ignore")
+        except UnicodeDecodeError:
+            print fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title
         bestvideo.download(quiet=True, callback=self.DownloadNow)
-        print  fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+        try:
+            print fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title.encode("latin-1","ignore")
+        except UnicodeDecodeError:
+            print fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title
         print fc + sb + "\n------------------------------------------------\n"
 
     def UserDefineStreamDownload(self, stream_no):
@@ -157,17 +174,26 @@ class YoutubeDownloader:
         print  fg + sb + "[INFORMATION] : " + fg + sd + "Downloading video information webpage .."
         print  fg + sb + "[INFORMATION] : " + fg + sd + "Extracting video information.."
         time.sleep(0.4)
-        title = v.title
+        title = "%s" % (v.title)
         dur = v.duration
         vid = v.videoid
         print  fc + sb + "\n------------------------------------------------"
-        print  fw + sd + "[TITLE]    : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+        try:
+            print fw + sd + "[TITLE]    : " + fg + sd + "%s " % title.encode("latin-1","ignore")
+        except UnicodeDecodeError:
+            print fw + sd + "[TITLE]    : " + fg + sd + "%s " % title
         print  fw + sd + "[DURATION] : " + fg + sd + "%s " % dur
         print  fw + sd + "[VIDEOID]  : " + fg + sd + "%s " % vid
         print  fc + sb + "------------------------------------------------\n"
-        print  fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+        try:
+            print fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title.encode("latin-1","ignore")
+        except UnicodeDecodeError:
+            print fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title
         Streams[stream_no].download(quiet=True, callback=self.DownloadNow)
-        print  fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+        try:
+            print fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title.encode("latin-1","ignore")
+        except UnicodeDecodeError:
+            print fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title
         print fc + sb + "\n------------------------------------------------\n"
 
 
@@ -190,11 +216,17 @@ class YoutubeDownloader:
         print fg + sb + "[INFORMATION] : " + fg + sd + "Extracting Audio information.."
         time.sleep(0.4)
         bestvideo = a.getbestaudio()
-        title = a.title
+        title = "%s" % (a.title)
         print fc + sb + "\n------------------------------------------------"
-        print fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+        try:
+            print fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title.encode("latin-1","ignore")
+        except UnicodeDecodeError:
+            print fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title
         bestvideo.download(quiet=True, callback=self.DownloadNow)
-        print fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+        try:
+            print fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title.encode("latin-1","ignore")
+        except UnicodeDecodeError:
+            print fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title
         print fc + sb + "------------------------------------------------\n"
 
     def PlayList(self, start, end):
@@ -284,10 +316,16 @@ class YoutubeDownloader:
             print  fg + sb + "[INFORMATION] : " + fg + sd + "Extracting video information"
             time.sleep(0.4)
             best = plist['items'][temp]['pafy'].getbest()
-            title = best.title
-            print  fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+            title = "%s" % (best.title)
+            try:
+                print  fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+            except UnicodeDecodeError:
+                print  fw + sd + "[DOWNLOADING] : " + fg + sd + "%s " % title
             best.download(quiet=True, callback=self.DownloadNow)
-            print  fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+            try:
+                print  fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title.encode('latin-1','ignore')
+            except UnicodeDecodeError:
+                print  fw + sd + "\n[COMPLETED]   : " + fg + sd + "%s " % title
             temp += 1
             s += 1
             print  fc + sb + "------------------------------------------------"

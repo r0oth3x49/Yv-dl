@@ -16,7 +16,6 @@ class YoutubeDownloader:
         self.video = video
         self.playlist = playlist
 
-    # Source taken from  http://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
     def printProgress(self, iteration, total, prefix = '' , fileSize='' , downloaded = '' , rate = '' ,suffix = '', decimals = 2, barLength = 100):
         filledLength    = int(round(barLength * iteration / float(total)))
         percents        = round(100.00 * (iteration / float(total)), decimals)

@@ -16,7 +16,7 @@ Yv-dl is a python based Youtube Audio, Video, Playlist downloader and live strea
 **Installation**
 You can download the latest version of YTube-Downloader by cloning the GitHub repository.
 
-	git clone https://github.com/r0oth3x49/YTube-Downloader.git
+	git clone https://github.com/r0oth3x49/Yv-dl.git
 
 <pre><code>
 Author: Nasir khan (<a href="http://r0oth3x49.herokuapp.com/">r0ot h3x49</a>)
@@ -98,7 +98,7 @@ Best video streaming:
 
 **Note**
 
-	1.	To stream audio video live YTube-Downloader uses python module "livestreamer" which by default it checks if it is installed or not, if not it will try to install if Yv-dl gets failed try manually for live streaming.
+	1.	To stream audio video live Yv-Downloader uses python module "livestreamer" which by default it checks if it is installed or not, if not it will try to install if Yv-dl gets failed try manually for live streaming.
 	2.	VideoLAN (VLC) player must be there in your machine.
 	3.	if you are downloading the playlist that starts from any indexed video that ur must be used with in the double 	quotes (e.g:- "URL")
 	

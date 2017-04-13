@@ -64,7 +64,7 @@ For playlist downloading from file
 	
 **Downloading best audio**
 
-	python YTube-Downloader.py -a https://www.youtube.com/watch?v=6TPcwWHZN_0
+	python Yv-dl.py -a https://www.youtube.com/watch?v=6TPcwWHZN_0
 	
 **Downloading playlist**
 ````

@@ -18,7 +18,7 @@ You can download the latest version of YTube-Downloader by cloning the GitHub re
 
 	git clone https://github.com/r0oth3x49/YTube-Downloader.git
 
-`
+````
 Author: Nasir khan (<a href="http://anonpakforce.blogspot.com/">r0ot h3x49</a>)
 Options:
   General Options:
@@ -42,7 +42,9 @@ Options:
     --video-stream    Live streaming of video on vlc player
     --audio-stream    Live streaming of audio on vlc player
     --best-stream     Best video (720p) streaming
- `
+ 
+ ````
+ 
 **Downloading Using File option**
 For videos downloading from file
 
